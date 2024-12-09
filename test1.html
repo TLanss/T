@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Current IP</title>
+    <title>IP Address and Video</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,25 +17,39 @@
             font-size: 2rem;
             color: #555;
         }
+        #video-player {
+            margin-top: 30px;
+            width: 80%;
+            max-width: 800px;
+            border: 2px solid #ccc;
+        }
     </style>
 </head>
 <body>
-    <h1>Your Current IP Address:</h1>
+    <h1>Your IP Address and Video</h1>
     <div id="ip">Loading...</div>
 
+    <!-- Video Embed (Example) -->
+    <div id="video-container">
+        <video id="video-player" controls width="600">
+            <source src="/assets/videos/your-video.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
     <script>
-        async function fetchIP() {
+        async function fetchMyIP() {
             try {
                 const response = await fetch("https://api.ipify.org?format=json");
                 const data = await response.json();
-                document.getElementById('ip').textContent = data.ip;
+                document.getElementById('ip').textContent = `Your Public IP: ${data.ip}`;
             } catch (error) {
                 document.getElementById('ip').textContent = "Error fetching IP address.";
                 console.error("Failed to fetch IP:", error);
             }
         }
 
-        fetchIP();
+        fetchMyIP();
     </script>
 </body>
 </html>
