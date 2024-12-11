@@ -1,9 +1,34 @@
-const ACCESS_TOKEN = 'BQBu18P8LpdZB7jhq14XtbZx4oUVRdrsbsD-KjneYE2TPcEBSQRL635WGlKqEGWuIKpVncClqzCxXn8dV3WsxVWiygdhI5pK2WpbjhtrQsLWBM-TeghhRd_RbmBtS3hbektgl_4O9nE4DmNsISRY47-ilkB_BW5RHcmrrj33Yj5SH_fFob-_uqE&token_type=Bearer&expires_in=3600'; // Replace with your access token
+// BQBu18P8LpdZB7jhq14XtbZx4oUVRdrsbsD-KjneYE2TPcEBSQRL635WGlKqEGWuIKpVncClqzCxXn8dV3WsxVWiygdhI5pK2WpbjhtrQsLWBM-TeghhRd_RbmBtS3hbektgl_4O9nE4DmNsISRY47-ilkB_BW5RHcmrrj33Yj5SH_fFob-_uqE&token_type=Bearer&expires_in=3600
+const CLIENT_ID = 'YOUR_CLIENT_ID'; // Replace with your Spotify Client ID
+const REDIRECT_URI = 'https://tlanss.github.io/T'; // Replace with your GitHub Pages URL
+const SCOPES = 'user-read-currently-playing';
+
+// Check if the token is in the URL hash
+const hash = window.location.hash;
+let accessToken = 'BQBu18P8LpdZB7jhq14XtbZx4oUVRdrsbsD-KjneYE2TPcEBSQRL635WGlKqEGWuIKpVncClqzCxXn8dV3WsxVWiygdhI5pK2WpbjhtrQsLWBM-TeghhRd_RbmBtS3hbektgl_4O9nE4DmNsISRY47-ilkB_BW5RHcmrrj33Yj5SH_fFob-_uqE&token_type=Bearer&expires_in=3600';
+
+if (hash) {
+    // Extract the access token from the URL hash
+    const params = new URLSearchParams(hash.substring(1));
+    accessToken = params.get('access_token');
+    window.location.hash = ''; // Clear the hash to avoid confusion
+} else {
+    // Redirect the user to Spotify Authorization if no token is found
+    const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=${CLIENT_ID}&response_type=token&redirect_uri=${encodeURIComponent(
+        REDIRECT_URI
+    )}&scope=${encodeURIComponent(SCOPES)}`;
+    window.location.href = AUTH_URL;
+}
 
 async function getCurrentlyPlaying() {
+    if (!accessToken) {
+        console.error('Access token is missing!');
+        return null;
+    }
+
     const response = await fetch('https://api.spotify.com/v1/me/player/currently-playing', {
         headers: {
-            Authorization: `Bearer ${ACCESS_TOKEN}`,
+            Authorization: `Bearer ${accessToken}`,
         },
     });
 
@@ -36,4 +61,6 @@ async function displaySong() {
     }
 }
 
-displaySong();
+if (accessToken) {
+    displaySong();
+}
