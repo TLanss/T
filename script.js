@@ -1,5 +1,5 @@
 // BQBu18P8LpdZB7jhq14XtbZx4oUVRdrsbsD-KjneYE2TPcEBSQRL635WGlKqEGWuIKpVncClqzCxXn8dV3WsxVWiygdhI5pK2WpbjhtrQsLWBM-TeghhRd_RbmBtS3hbektgl_4O9nE4DmNsISRY47-ilkB_BW5RHcmrrj33Yj5SH_fFob-_uqE&token_type=Bearer&expires_in=3600
-const CLIENT_ID = 'YOUR_CLIENT_ID'; // Replace with your Spotify Client ID
+const CLIENT_ID = '98849fa771334fbb8cc42eef6be5087f'; // Replace with your Spotify Client ID
 const REDIRECT_URI = 'https://tlanss.github.io/T'; // Replace with your GitHub Pages URL
 const SCOPES = 'user-read-currently-playing';
 
